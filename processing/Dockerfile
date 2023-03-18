@@ -20,6 +20,6 @@ ENV LD_LIBRARY_PATH $LD_LIBRARY_PATH:/usr/local/cuda/lib:/usr/local/cuda/lib64
 COPY . /
 
 
-CMD ["/detect/launch_processing.py"]
+CMD ["/picsellia/launch_processing.py"]
 ENTRYPOINT ["python3"]
-RUN chown -R 42420 /detect /utils
+RUN chown -R 42420 /picsellia

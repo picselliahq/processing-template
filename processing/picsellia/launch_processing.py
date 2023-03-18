@@ -15,13 +15,9 @@ from picsellia.types.enums import JobRunStatus
 import logging
 
 logging.getLogger('picsellia').setLevel(logging.INFO)
-os.chdir('tf')
+os.chdir('picsellia')
 command = "python3 main.py"
 
-if "host" not in os.environ:
-    host = "https://app.picsellia.com"
-else:
-    host = os.environ["host"]
 if 'api_token' not in os.environ:
     raise RuntimeError("You must set an api_token to run this image")
 
@@ -33,7 +29,6 @@ job_id = os.environ["job_id"]
 
 client = Client(
     api_token=api_token,
-    host=host
 )
 
 job = client.get_job_by_id(job_id)

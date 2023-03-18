@@ -5,15 +5,10 @@ import os
 
 api_token = os.environ["api_token"]
 
-if "host" not in os.environ:
-    host = "https://app.picsellia.com"
-else:
-    host = os.environ["host"]
 job_id = os.environ["job_id"]
 
 client = Client(
     api_token=api_token,
-    host=host
 )
 
 job = client.get_job_by_id(job_id)
