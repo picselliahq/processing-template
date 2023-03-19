@@ -33,10 +33,10 @@ simple_rotation(file_list, target_path=target_path)
 new_file_list = [os.path.join(target_path, path) for path in os.listdir(target_path)]
 
 datalake = client.get_datalake()
-data_list = datalake.upload_data(new_file_list)
+data_list = datalake.upload_data(new_file_list, tags=["augmented", "processing"])
 
 output_dataset: DatasetVersion = client.get_dataset_version_by_id(
     output_dataset_version
 )
 
-output_dataset.add_data(data_list, tags=["augmented", "processing"])
+output_dataset.add_data(data_list)
