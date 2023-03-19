@@ -3,6 +3,7 @@ from pathlib import Path
 import os
 
 def simple_rotation(filepaths: list, target_path: str):
+    Path(target_path).mkdir(parents=True, exist_ok=True)
     for path in filepaths:
         filename = Path(path).name
         image = Image.open(path)

@@ -4,11 +4,12 @@ from utils.data_augmentation import simple_rotation
 import os
 
 api_token = os.environ["api_token"]
-
+organization_id = os.environ["organization_id"]
 job_id = os.environ["job_id"]
 
 client = Client(
     api_token=api_token,
+    organization_id=organization_id
 )
 
 job = client.get_job_by_id(job_id)
