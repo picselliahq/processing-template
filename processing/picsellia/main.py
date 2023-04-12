@@ -14,7 +14,7 @@ client = Client(
 
 job = client.get_job_by_id(job_id)
 
-context = job.sync()["datasetversionprocessingjob"]
+context = job.sync()["dataset_version_processing_job"]
 input_dataset_version_id = context["input_dataset_version_id"]
 output_dataset_version = context["output_dataset_version_id"]
 parameters = context["parameters"]
@@ -34,9 +34,13 @@ new_file_list = [os.path.join(target_path, path) for path in os.listdir(target_p
 
 datalake = client.get_datalake()
 data_list = datalake.upload_data(new_file_list, tags=["augmented", "processing"])
-
-output_dataset: DatasetVersion = client.get_dataset_version_by_id(
-    output_dataset_version
-)
+try:
+    output_dataset: DatasetVersion = client.get_dataset_version_by_id(
+        output_dataset_version
+    )
+except:
+    dataset = client.get_dataset_by_id(input_dataset_version.origin_id)
+    new_name = input_dataset_version.version + "-rotated"
+    output_dataset: DatasetVersion = dataset.create_version(version=new_name, type=input_dataset_version.type)
 
 output_dataset.add_data(data_list)
