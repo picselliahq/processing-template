@@ -43,4 +43,7 @@ except:
     new_name = input_dataset_version.version + "-rotated"
     output_dataset: DatasetVersion = dataset.create_version(version=new_name, type=input_dataset_version.type)
 
-output_dataset.add_data(data_list)
+job = output_dataset.add_data(data_list)
+print(f"Adding new Assets to new dataset version: {output_dataset.version}")
+job.wait_for_done(blocking_time_increment=100.0, attempts=100)
+print("Finished adding assets")
